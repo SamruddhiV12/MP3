@@ -33,9 +33,9 @@ var TaskSchema = new mongoose.Schema({
     }
 });
 
-// Indexes for faster queries
+// Indexes for fast queries
 TaskSchema.index({ completed: 1 });
 TaskSchema.index({ assignedUser: 1 });
 
-// Export the Mongoose model
+// Export Mongoose model
 module.exports = mongoose.model('Task', TaskSchema);
