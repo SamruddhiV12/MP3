@@ -15,8 +15,8 @@ mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => console.log('✅ MongoDB connected successfully'))
-.catch(err => console.error('❌ MongoDB connection error:', err));
+.then(() => console.log('MongoDB connected successfully'))
+.catch(err => console.error('MongoDB connection error:', err));
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,7 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Root route - MUST be BEFORE the API routes
+// Root route 
 app.get('/', (req, res) => {
   res.json({
     message: 'Welcome to Llama.io Task Management API',
@@ -42,10 +42,10 @@ app.get('/', (req, res) => {
   });
 });
 
-// API ROUTES - Load after root route
+// API ROUTES 
 require('./routes')(app, router);
 
-// 404 handler - MUST be AFTER all routes
+// 404 handler 
 app.use((req, res) => {
   res.status(404).json({
     message: 'Endpoint not found',
@@ -53,7 +53,7 @@ app.use((req, res) => {
   });
 });
 
-// Error handler - MUST be LAST
+// Error handler 
 app.use((err, req, res, next) => {
   console.error('Error:', err.stack);
   res.status(500).json({
@@ -62,5 +62,5 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start the server
+// Starting the server
 app.listen(port, () => console.log(`🚀 Server running on port ${port}`));
