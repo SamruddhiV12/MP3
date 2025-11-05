@@ -1,15 +1,13 @@
-// ======================
-// routes/home.js
-// ======================
+
 
 const Task = require('../models/task');
 const User = require('../models/user');
 
 module.exports = function (router) {
 
-    // ------------------------------------------------
-    // Helper to build query parameters
-    // ------------------------------------------------
+
+    // Building query parameters
+
     const buildQuery = (queryParams) => {
         const { where, sort, select, skip, limit, count } = queryParams;
 
@@ -30,9 +28,8 @@ module.exports = function (router) {
         return { query, sortObj, selectObj, skipNum, limitNum, isCount };
     };
 
-    // ------------------------------------------------
     // USERS ENDPOINTS
-    // ------------------------------------------------
+
     const usersRoute = router.route('/users');
 
     // GET /api/users
@@ -81,9 +78,9 @@ module.exports = function (router) {
         }
     });
 
-    // ------------------------------------------------
+
     // USERS BY ID ROUTES (/api/users/:id)
-    // ------------------------------------------------
+
     const userRoute = router.route('/users/:id');
 
     // GET /api/users/:id
@@ -165,9 +162,9 @@ module.exports = function (router) {
         }
     });
 
-    // ------------------------------------------------
+
     // TASKS ENDPOINTS
-    // ------------------------------------------------
+
     const tasksRoute = router.route('/tasks');
 
     // GET /api/tasks
@@ -225,9 +222,9 @@ module.exports = function (router) {
         }
     });
 
-    // ------------------------------------------------
+
     // TASKS BY ID ROUTES (/api/tasks/:id)
-    // ------------------------------------------------
+
     const taskRoute = router.route('/tasks/:id');
 
     // GET /api/tasks/:id
