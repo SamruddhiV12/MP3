@@ -1,18 +1,13 @@
-// ======================
-// server.js
-// ======================
-
-// Load packages
+// Loading packages
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
-// Initialize express
+// Initializing express
 const app = express();
-const router = express.Router(); // ✅ Important: shared router instance
+const router = express.Router();
 
-// Use environment defined port or default 3000
 const port = process.env.PORT || 3000;
 
 // MongoDB Connection
@@ -27,7 +22,6 @@ mongoose.connect(process.env.MONGODB_URI, {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// CORS
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept");
@@ -35,12 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// ======================
-// ROUTES
-// ======================
-require('./routes')(app, router); // ✅ Loads all routes and passes router
-
-// Root route
+// Root route - MUST be BEFORE the API routes
 app.get('/', (req, res) => {
   res.json({
     message: 'Welcome to Llama.io Task Management API',
@@ -53,7 +42,10 @@ app.get('/', (req, res) => {
   });
 });
 
-// 404 handler
+// API ROUTES - Load after root route
+require('./routes')(app, router);
+
+// 404 handler - MUST be AFTER all routes
 app.use((req, res) => {
   res.status(404).json({
     message: 'Endpoint not found',
@@ -61,7 +53,7 @@ app.use((req, res) => {
   });
 });
 
-// Error handler
+// Error handler - MUST be LAST
 app.use((err, req, res, next) => {
   console.error('Error:', err.stack);
   res.status(500).json({
