@@ -1,7 +1,7 @@
 // Load required packages
 var mongoose = require('mongoose');
 
-// Define our user schema
+// user schema
 var UserSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -27,5 +27,5 @@ var UserSchema = new mongoose.Schema({
 // Index for faster email lookups
 UserSchema.index({ email: 1 });
 
-// Export the Mongoose model
+// Export Mongoose model
 module.exports = mongoose.model('User', UserSchema);
